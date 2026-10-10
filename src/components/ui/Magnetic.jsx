@@ -1,16 +1,17 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
 function Magnetic({ children, strength = 0.25, className }) {
   const ref = useRef(null);
   const reduce = useReducedMotion();
+  const finePointer = useMemo(() => typeof window !== "undefined" && window.matchMedia("(pointer:fine) and (hover:hover)").matches, []);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const sx = useSpring(x, { stiffness: 180, damping: 15 });
   const sy = useSpring(y, { stiffness: 180, damping: 15 });
 
   const move = (e) => {
-    if (reduce || !ref.current) return;
+    if (reduce || !finePointer || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
     x.set((e.clientX - (r.left + r.width / 2)) * strength);
     y.set((e.clientY - (r.top + r.height / 2)) * strength);
@@ -20,6 +21,8 @@ function Magnetic({ children, strength = 0.25, className }) {
     x.set(0);
     y.set(0);
   };
+
+  if (!finePointer || reduce) return <div className={className} style={{ display: "inline-block" }}>{children}</div>;
 
   return (
     <motion.div

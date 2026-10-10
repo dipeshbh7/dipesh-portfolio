@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion";
 
 function Cursor() {
-  const fine = useMemo(() => typeof window !== "undefined" && window.matchMedia("(pointer:fine)").matches, []);
+  const fine = useMemo(() => typeof window !== "undefined" && window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(hover:none)").matches, []);
   const reduce = useReducedMotion();
   const [hov, setHov] = useState(false);
   const mx = useMotionValue(-200);

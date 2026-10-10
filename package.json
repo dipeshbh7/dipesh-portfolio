@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Personal portfolio website of Dipesh Bhattarai — AI Engineer, Software Developer & UI/UX Designer.",
+  "description": "Personal portfolio of Dipesh Bhattarai, a BSc CSIT student from Nepal.",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

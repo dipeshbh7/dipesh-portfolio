@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { EASE } from "./ease";
 
-const ROLES = ["AI Engineer", "Software Developer", "UI/UX Designer", "Problem Solver"];
+const ROLES = ["CSIT Student", "Software Developer", "UI/UX Designer", "Robotics Tinkerer"];
 
 function Rotator() {
   const [i, setI] = useState(0);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    const id = setInterval(() => setI((v) => (v + 1) % ROLES.length), 2400);
+    if (reduce) return undefined;
+    const id = setInterval(() => setI((v) => (v + 1) % ROLES.length), 3200);
     return () => clearInterval(id);
-  }, []);
+  }, [reduce]);
+
+  if (reduce) return <span className="rotator"><span className="grad">{ROLES[0]}</span></span>;
 
   return (
     <span className="rotator">

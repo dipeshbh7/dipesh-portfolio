@@ -1,8 +1,10 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { EASE } from "./ease";
 
 function R({ children, delay = 0, y = 28, className }) {
+  const reduce = useReducedMotion();
+  if (reduce) return <div className={className}>{children}</div>;
   return (
     <motion.div
       className={className}

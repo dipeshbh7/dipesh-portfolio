@@ -5,9 +5,9 @@
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11-0055FF?logo=framer&logoColor=white)](https://www.framer.com/motion/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 
-Personal portfolio website for Dipesh Bhattarai — AI Engineer, Software Developer & UI/UX Designer, BSc CSIT student at Far Western University, Nepal.
+Personal portfolio website for Dipesh Bhattarai, a BSc CSIT student at Far Western University, Nepal.
 
-This is a single-page React app with [Framer Motion](https://www.framer.com/motion/) for animation: a scroll-aware nav, command palette (⌘K), light/dark mode, filterable project grid, and animated stats and skills sections.
+This is a single-page React app with [Framer Motion](https://www.framer.com/motion/) for animation: a scroll-aware nav, command palette (⌘K), light/dark mode, filterable project grid, and animated stat counters.
 
 Available screenshots in the repo:
 
@@ -23,11 +23,11 @@ I wanted the site to feel clean and personal while still showing the work clearl
 
 ## Sections
 
-- **Hero** — animated name reveal, rotating role titles, availability badge
+- **Hero** — animated name reveal and rotating role titles
 - **About** — bio + animated stat counters
 - **Projects** — filterable grid (Human Following Cart, WorkDipZ, Najik Ko Sathi, Charo Game)
 - **Experience** — IT Club, KYC 2025, Thrive 2025
-- **Skills** — programming languages, tools, focus-area progress bars
+- **Skills** — programming languages, tools
 - **Achievements** — hackathons, exhibitions, leadership, certificates
 - **Contact** — email, LinkedIn, GitHub
 

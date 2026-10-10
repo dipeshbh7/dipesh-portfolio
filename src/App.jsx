@@ -21,9 +21,15 @@ const CSS = `
 @font-face{font-family:'Inter';font-style:normal;font-weight:500;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-500-normal.woff2) format('woff2')}
 @font-face{font-family:'Inter';font-style:normal;font-weight:600;font-display:swap;src:url(https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.woff2) format('woff2')}
 
+html{overflow-x:hidden;max-width:100vw}
+html,body{margin:0;padding:0}
+body{overflow-x:hidden;overflow-x:clip;max-width:100vw;width:100%;position:relative}
+html{scrollbar-gutter:stable}
+body{overscroll-behavior-x:none}
+#root{max-width:100vw;overflow-x:clip}
 .dbx{--bg:#F8F8F6;--card:#FFFFFF;--tx:#111111;--mut:#666666;--bd:#E8E8E8;--ac:#2563EB;--ac2:#06B6D4;--ok:#22C55E;
 --sh:0 24px 60px -24px rgba(17,17,17,.14);--band:#111112;
-font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;overflow-x:clip;
+font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);min-height:100vh;max-width:100vw;overflow-x:hidden;overflow-x:clip;
 -webkit-font-smoothing:antialiased;transition:background .5s ease,color .5s ease}
 .dbx.dark{--bg:#0D0D0D;--card:#181818;--tx:#F5F5F4;--mut:#9C9C9C;--bd:#262626;--band:#141414;--sh:0 24px 60px -24px rgba(0,0,0,.65)}
 .dbx *,.dbx *::before,.dbx *::after{box-sizing:border-box;margin:0;padding:0}
@@ -34,14 +40,15 @@ font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--tx);mi
 .dbx a{color:inherit;text-decoration:none}
 .dbx.cx, .dbx.cx a, .dbx.cx button{cursor:none}
 .dbx.cx input,.dbx.cx textarea{cursor:text}
+@media (hover:none),(pointer:coarse){.dbx.cx,.dbx.cx a,.dbx.cx button{cursor:auto}.cur-ring,.cur-dot{display:none!important}}
 .hg{font-family:'Space Grotesk','Inter',sans-serif}
 .grad{background:linear-gradient(92deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
 .shell{max-width:1400px;margin:0 auto;padding:0 clamp(16px,4vw,40px)}
-section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96px}
+section{position:relative;overflow-x:clip;max-width:100%;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96px}
 
 .progress{position:fixed;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--ac),var(--ac2));transform-origin:0 50%;z-index:999}
-.cur-dot{position:fixed;top:0;left:0;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--ac);z-index:1001;pointer-events:none}
-.cur-ring{position:fixed;top:0;left:0;width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid color-mix(in srgb,var(--tx) 32%,transparent);border-radius:50%;z-index:1000;pointer-events:none;transition:width .25s,height .25s,margin .25s,border-color .25s,background .25s}
+.cur-dot{position:fixed;top:0;left:0;will-change:transform;contain:layout style;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:var(--ac);z-index:1001;pointer-events:none}
+.cur-ring{position:fixed;top:0;left:0;will-change:transform;contain:layout style;width:36px;height:36px;margin:-18px 0 0 -18px;border:1.5px solid color-mix(in srgb,var(--tx) 32%,transparent);border-radius:50%;z-index:1000;pointer-events:none;transition:width .25s,height .25s,margin .25s,border-color .25s,background .25s}
 .cur-ring.hov{width:56px;height:56px;margin:-28px 0 0 -28px;border-color:var(--ac);background:rgba(37,99,235,.07)}
 .loader{position:fixed;inset:0;background:var(--bg);z-index:1200;display:grid;place-items:center}
 .loader .lb{font-family:'Space Grotesk';font-weight:700;font-size:clamp(64px,12vw,120px);letter-spacing:-.05em;display:flex}
@@ -50,7 +57,7 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
 .loader .lb .o{color:transparent;-webkit-text-stroke:2px var(--tx)}
 .loader .lline{width:200px;height:2px;background:var(--bd);margin:24px auto 0;overflow:hidden;border-radius:99px}
 .loader .lsub{margin-top:16px;text-align:center;color:var(--mut);font-size:12px;letter-spacing:.35em;text-transform:uppercase}
-.navwrap{position:fixed;top:16px;left:0;right:0;z-index:900;display:flex;justify-content:center;padding:0 16px}
+.navwrap{position:fixed;top:16px;left:0;right:0;max-width:100vw;overflow-x:clip;z-index:900;display:flex;justify-content:center;padding:0 16px}
 .navpill{width:min(1400px,100%);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 10px 10px 20px;border:1px solid var(--bd);border-radius:20px;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:var(--sh)}
 .logo{display:flex;align-items:center;gap:10px}
 .logo-badge{width:36px;height:36px;border-radius:12px;background:var(--tx);color:var(--bg);display:grid;place-items:center;font-weight:700;font-size:14px;letter-spacing:-.02em}
@@ -109,7 +116,7 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
  .hsocial{flex-direction:row;flex-wrap:wrap}
  .hleft{max-width:100%}
 }
-.marquee{overflow:hidden;border-block:1px solid var(--bd);padding:20px 0;background:var(--card)}
+.marquee{max-width:100vw;overflow:hidden;contain:paint;border-block:1px solid var(--bd);padding:20px 0;background:var(--card)}
 .marquee-track{display:flex;width:max-content;animation:marq 30s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
 .mgroup{display:flex;align-items:center;gap:56px;padding-right:56px}
@@ -117,7 +124,10 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
 .mitem.o{color:transparent;-webkit-text-stroke:1px var(--mut)}
 .msep{color:var(--ac)}
 @keyframes marq{to{transform:translateX(-50%)}}
-@media(prefers-reduced-motion:reduce){.marquee-track{animation:none}}
+@media(prefers-reduced-motion:reduce){
+ .marquee-track{animation:none!important}
+ .dbx *, .dbx *::before, .dbx *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+}
 .shead{position:relative;display:flex;align-items:baseline;gap:16px;margin-bottom:clamp(36px,5vw,64px)}
 .sindex{font-size:13px;color:var(--ac);font-weight:600;letter-spacing:.14em}
 .stitle{font-family:'Space Grotesk';font-size:clamp(34px,5.4vw,68px);font-weight:700;letter-spacing:-.03em}
@@ -127,9 +137,6 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
 .about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(32px,5vw,72px);align-items:start}
 .about-txt h3{font-family:'Space Grotesk';font-size:clamp(22px,2.6vw,32px);font-weight:700;letter-spacing:-.02em;line-height:1.25}
 .about-txt p{margin-top:20px;color:var(--mut);font-size:15.5px;line-height:1.8}
-.traits{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
-.trait{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:9px 16px;border:1px solid var(--bd);border-radius:999px;background:var(--card)}
-.trait i{width:6px;height:6px;border-radius:50%;background:linear-gradient(90deg,var(--ac),var(--ac2))}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .stat{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:24px;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .35s}
 .stat:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--ac) 40%,var(--bd));box-shadow:0 18px 40px -20px rgba(37,99,235,.3)}
@@ -174,8 +181,8 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
 .xrow p{color:rgba(248,248,246,.6);font-size:14px;line-height:1.7;margin-top:10px;max-width:520px}
 .xrow .per{justify-self:end;align-self:start;color:rgba(248,248,246,.55);font-size:13px;font-weight:600;letter-spacing:.06em;padding:8px 14px;border:1px solid rgba(255,255,255,.16);border-radius:999px;white-space:nowrap}
 @media(max-width:760px){.xrow{grid-template-columns:1fr}.xrow .per{justify-self:start}}
-.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-@media(max-width:960px){.sgrid{grid-template-columns:1fr}}
+.sgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:760px){.sgrid{grid-template-columns:1fr}}
 .scard{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:32px;transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s,box-shadow .35s}
 .scard:hover{transform:translateY(-6px);border-color:color-mix(in srgb,var(--ac) 40%,var(--bd));box-shadow:0 24px 48px -24px rgba(37,99,235,.3)}
 .scard .hd{display:flex;align-items:center;gap:12px;margin-bottom:24px}
@@ -184,11 +191,6 @@ section{position:relative;padding:clamp(72px,10vw,128px) 0;scroll-margin-top:96p
 .schips{display:flex;flex-wrap:wrap;gap:10px}
 .schip{padding:10px 16px;border:1px solid var(--bd);border-radius:12px;background:var(--bg);font-size:13.5px;font-weight:600;transition:all .3s cubic-bezier(.22,1,.36,1)}
 .schip:hover{transform:translateY(-3px);border-color:color-mix(in srgb,var(--ac) 45%,var(--bd));box-shadow:0 10px 22px -12px rgba(37,99,235,.4);color:var(--ac)}
-.bar{height:6px;border-radius:99px;background:var(--bd);overflow:hidden;margin-top:8px}
-.barfill{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ac),var(--ac2))}
-.arow{margin-bottom:18px}
-.arow .lb{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:2px}
-.arow .lb span:last-child{color:var(--mut)}
 .achrow{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 16px;scrollbar-width:none}
 .achrow::-webkit-scrollbar{display:none}
 .ach{min-width:290px;max-width:320px;scroll-snap-align:start;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:28px;transition:transform .35s,border-color .3s,box-shadow .35s}
@@ -267,30 +269,28 @@ const NAV = [
   { id: "contact", label: "Contact" },
 ];
 
-const ROLES = ["AI Engineer", "Software Developer", "UI/UX Designer", "Problem Solver"];
-
 const PROJECTS = [
   {
     title: "Human Following Cart", cat: "Robotics", img: IMG.cart,
-    desc: "Smart autonomous cart that tracks and follows its user using ultrasonic & IR sensors with an embedded control loop.",
+    desc: "A cart that follows a person on its own. It uses ultrasonic and IR sensors to keep track of where the person is.",
     tags: ["Robotics", "Arduino", "Sensors", "Embedded Systems"],
     repo: "https://github.com/dipeshbh7/human-following-cart"
   },
   {
     title: "WorkDipZ", cat: "Mobile", img: IMG.workdipz,
-    desc: "Productivity-first task management Android application with a clean, focused and fast interface.",
+    desc: "An Android task manager written in Kotlin. I kept the interface simple so adding and finishing tasks is quick.",
     tags: ["Android", "Kotlin", "UI/UX", "Productivity"],
     repo: "https://github.com/dipeshbh7/WorkDipz"
   },
   {
     title: "Najik Ko Sathi", cat: "Mobile", img: IMG.najik,
-    desc: "A mobile-first home services companion for Nepal that helps users diagnose household problems, connect with trusted service providers, track repairs, and stay on top of routine maintenance — all through a polished React and Capacitor experience.",
+    desc: "A mobile app for home services in Nepal. It helps users work out household problems, find service providers, track repairs and keep up with regular maintenance. Built with React and Capacitor.",
     tags: ["React", "Capacitor", "Mobile", "Home Services"],
     repo: "https://github.com/dipeshbh7/najikko-sathi"
   },
   {
     title: "Charo Game", cat: "Web", img: IMG.charo,
-    desc: "A traditional Nepali game reimagined as an interactive digital experience for the browser.",
+    desc: "A traditional Nepali game rebuilt to play in the browser.",
     tags: ["Game Development", "JavaScript", "Interactive"],
     repo: "https://github.com/dipeshbh7/charo-game"
   },
@@ -300,35 +300,27 @@ const FILTERS = ["All", "Robotics", "Mobile", "Web"];
 const EXPERIENCE = [
   {
     role: "Vice President", org: "IT Club", period: "2024 — Present",
-    desc: "Leading the campus tech community — organizing workshops, hackathons and peer-learning sessions."
+    desc: "I help run the college IT club and organize workshops, hackathons and learning sessions for other students."
   },
   {
     role: "Event Coordinator", org: "KYC 2025", period: "2025",
-    desc: "Coordinated logistics and technical operations for the college's flagship annual event."
+    desc: "Coordinated logistics and technical work for the college's annual event."
   },
   {
     role: "College Ambassador", org: "Thrive 2025", period: "2025",
-    desc: "Represented the college and hosted participants at a national-level technology fest."
+    desc: "Represented the college and hosted participants at a national-level tech fest."
   },
 ];
 
 const ACHIEVEMENTS = [
-  { icon: "trophy", t: "Hackathons", d: "Built AI-driven solutions under pressure at national-level hackathons." },
-  { icon: "cpu", t: "Tech Exhibitions", d: "Showcased robotics & software projects at campus technology expos." },
-  { icon: "users", t: "Leadership", d: "Vice President of the IT Club — building a culture of shipping." },
-  { icon: "bulb", t: "Innovation", d: "Pitched healthcare-AI concepts that bridge ML with real needs." },
-  { icon: "award", t: "Certificates", d: "Continuous upskilling across AI, security, design and development." },
+  { icon: "trophy", t: "Hackathons", d: "Took part in national-level hackathons and built AI-based projects." },
+  { icon: "cpu", t: "Tech Exhibitions", d: "Showed robotics and software projects at campus tech exhibitions." },
+  { icon: "users", t: "Leadership", d: "Vice President of the IT Club." },
+  { icon: "bulb", t: "Pitching", d: "Pitched ideas for using AI in healthcare." },
+  { icon: "award", t: "Certificates", d: "Certificates in AI, security, design and development." },
 ];
 
-const INTERESTS = ["Artificial Intelligence", "Cybersecurity", "Robotics", "Open Source", "Web Development", "Problem Solving"];
-
-const AREAS = [
-  { name: "Web Development", v: 92 },
-  { name: "Artificial Intelligence", v: 88 },
-  { name: "UI/UX Design", v: 86 },
-  { name: "Robotics", v: 78 },
-  { name: "Cybersecurity", v: 74 },
-];
+const INTERESTS = ["Artificial Intelligence", "Cybersecurity", "Robotics", "Open Source", "Web Development"];
 
 const EMAIL = "dipeshbh121@gmail.com";
 const LINKEDIN = "https://www.linkedin.com/in/dipesh-bhattarai-2b286736a";
@@ -363,18 +355,20 @@ export default function App() {
 
   useEffect(() => { const t = setTimeout(() => setLoading(false), 1700); return () => clearTimeout(t); }, []);
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = (loading || menuOpen || palOpen) ? "hidden" : "";
+    return () => { document.body.style.overflow = previousOverflow; };
   }, [loading, menuOpen, palOpen]);
 
   useEffect(() => {
-    document.title = "Dipesh Bhattarai — AI Engineer, Software Developer & UI/UX Designer";
+    document.title = "Dipesh Bhattarai — CSIT Student & Developer";
     const meta = (name, content, attr = "name") => {
       let m = document.querySelector(`meta[${attr}="${name}"]`);
       if (!m) { m = document.createElement("meta"); m.setAttribute(attr, name); document.head.appendChild(m); }
       m.setAttribute("content", content);
     };
-    meta("description", "Portfolio of Dipesh Bhattarai — BSc CSIT student from Nepal building intelligent digital experiences through software, AI and thoughtful design.");
-    meta("og:title", "Dipesh Bhattarai — AI Engineer & Software Developer", "property");
+    meta("description", "Portfolio of Dipesh Bhattarai, a BSc CSIT student from Nepal. Web and Android apps, robotics projects and AI ideas.");
+    meta("og:title", "Dipesh Bhattarai — CSIT Student & Developer", "property");
     meta("og:type", "website", "property");
     meta("twitter:card", "summary_large_image");
     let f = document.querySelector('link[rel="icon"]');
@@ -395,18 +389,18 @@ export default function App() {
   }, [reduce]);
 
   const copyEmail = useCallback(async () => {
-    try { await navigator.clipboard.writeText(EMAIL); showToast("Email copied to clipboard"); }
+    try { await navigator.clipboard.writeText(EMAIL); showToast("Email copied"); }
     catch { showToast(EMAIL); }
   }, [showToast]);
 
   const downloadResume = useCallback(() => {
     const txt = `DIPESH BHATTARAI
-AI Engineer | Software Developer | UI/UX Designer
+BSc CSIT Student | Software Developer | UI/UX Designer
 Nepal | ${EMAIL}
 ${LINKEDIN} | ${GITHUB}
 
 SUMMARY
-BSc CSIT student at Far Western University who builds at the intersection of AI, software and design. Curious builder who ships robots, apps and experiences.
+BSc CSIT student at Far Western University. I build web and mobile apps and small robotics projects, and I'm interested in AI, security and design.
 
 EDUCATION
 Far Western University — BSc CSIT (Pursuing)
@@ -419,6 +413,7 @@ College Ambassador — Thrive 2025
 PROJECTS
 Human Following Cart — Robotics / Arduino / Embedded Systems
 WorkDipZ — Android / Kotlin / UI-UX
+Najik Ko Sathi — React / Capacitor / Mobile
 Charo Game — JavaScript / Game Development
 
 SKILLS
@@ -428,8 +423,8 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url; a.download = "Dipesh-Bhattarai-Resume.txt"; a.click();
-    URL.revokeObjectURL(url);
-    showToast("Resume downloaded ✓");
+    window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+    showToast("Resume downloaded");
   }, [showToast]);
 
   useEffect(() => {
@@ -459,7 +454,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
       if (tag === "input" || tag === "textarea") return;
       const k = e.key.toLowerCase();
       konami.current = SEQ[konami.current] === k ? konami.current + 1 : (SEQ[0] === k ? 1 : 0);
-      if (konami.current === SEQ.length) { showToast("Keep Building 🚀"); konami.current = 0; }
+      if (konami.current === SEQ.length) { showToast("You found the Konami code"); konami.current = 0; }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
@@ -470,15 +465,19 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
     { l: dark ? "Switch to Light Mode" : "Switch to Dark Mode", k: "theme", i: dark ? "sun" : "moon", run: () => setDark((v) => !v) },
     { l: "Copy Email", k: "clipboard", i: "copy", run: copyEmail },
     { l: "Download Resume", k: "pdf", i: "down", run: downloadResume },
-    { l: "Open GitHub", k: "external", i: "code", run: () => window.open(GITHUB, "_blank") },
-    { l: "Open LinkedIn", k: "external", i: "users", run: () => window.open(LINKEDIN, "_blank") },
+    { l: "Open GitHub", k: "external", i: "code", run: () => window.open(GITHUB, "_blank", "noopener,noreferrer") },
+    { l: "Open LinkedIn", k: "external", i: "users", run: () => window.open(LINKEDIN, "_blank", "noopener,noreferrer") },
   ], [dark, goTo, copyEmail, downloadResume]);
   const filtered = useMemo(() => {
     const q = palQ.trim().toLowerCase();
     return q ? cmds.filter((c) => c.l.toLowerCase().includes(q) || c.k.includes(q)) : cmds;
   }, [cmds, palQ]);
   useEffect(() => { setPalSel(0); }, [palQ, palOpen]);
-  useEffect(() => { if (palOpen) setTimeout(() => palInput.current?.focus(), 60); }, [palOpen]);
+  useEffect(() => {
+    if (!palOpen) return undefined;
+    const id = window.setTimeout(() => palInput.current?.focus(), 60);
+    return () => window.clearTimeout(id);
+  }, [palOpen]);
 
   const shownProjects = filter === "All" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
@@ -487,7 +486,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
       <div className={"dbx" + (dark ? " dark" : "") + (canCursor && !reduce ? " cx" : "")}>
         <style>{CSS}</style>
 
-        <motion.div className="progress" style={{ scaleX: prog }} />
+        <motion.div className="progress" style={{ scaleX: prog }} aria-hidden="true" />
         <Cursor />
 
         {/* loader */}
@@ -526,9 +525,9 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                 <Icon n="cmd" size={16} />
               </button>
               <Magnetic className="nav-cta">
-                <button className="btn btn-primary" onClick={() => goTo("contact")}>Let's Talk <Icon n="upR" size={15} /></button>
+                <button className="btn btn-primary" onClick={() => goTo("contact")}>Contact <Icon n="upR" size={15} /></button>
               </Magnetic>
-              <button className="iconbtn menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+              <button className="iconbtn menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu" aria-expanded={menuOpen} aria-controls="mobile-navigation">
                 <Icon n="menu" size={18} />
               </button>
             </div>
@@ -538,7 +537,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
         {/* mobile menu */}
         <AnimatePresence>
           {menuOpen && (
-            <motion.div className="mmenu" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
+            <motion.div id="mobile-navigation" className="mmenu" role="dialog" aria-modal="true" aria-label="Mobile navigation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}>
               <div className="mm-head">
                 <span className="logo"><span className="logo-badge hg">DB</span><span className="logo-name hg">dipesh.bhattarai</span></span>
                 <button className="iconbtn" onClick={() => setMenuOpen(false)} aria-label="Close menu"><Icon n="x" size={18} /></button>
@@ -563,9 +562,9 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
         {/* command palette */}
         <AnimatePresence>
           {palOpen && (
-            <motion.div className="pal" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            <motion.div className="pal" role="presentation" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setPalOpen(false)}>
-              <motion.div className="pal-panel" initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }}
+              <motion.div className="pal-panel" role="dialog" aria-modal="true" aria-label="Command palette" initial={{ opacity: 0, y: 24, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 16, scale: 0.98 }} transition={{ duration: 0.3, ease: EASE }} onClick={(e) => e.stopPropagation()}>
                 <div className="pal-in">
                   <Icon n="cmd" size={16} />
@@ -576,10 +575,10 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                       if (e.key === "ArrowUp") { e.preventDefault(); setPalSel((s) => Math.max(s - 1, 0)); }
                       if (e.key === "Enter" && filtered[palSel]) { filtered[palSel].run(); setPalOpen(false); setPalQ(""); }
                     }}
-                    aria-label="Command search" />
+                    aria-label="Command search" aria-controls="command-results" aria-autocomplete="list" />
                   <span className="pal-item k" style={{ padding: "3px 8px" }}>esc</span>
                 </div>
-                <div className="pal-list">
+                <div className="pal-list" id="command-results">
                   {filtered.map((c, idx) => (
                     <button key={c.l} className={"pal-item" + (idx === palSel ? " sel" : "")}
                       onMouseEnter={() => setPalSel(idx)}
@@ -620,7 +619,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
             <div className="hero-grid">
               <motion.div className="hleft" initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 2, duration: 0.8, ease: EASE }}>
                 <div className="roleline">I'm a <Rotator /></div>
-                <p>I build intelligent digital experiences through software, AI and thoughtful design — turning curious ideas into real, working products from Nepal to anywhere.</p>
+                <p>I'm a BSc CSIT student from Nepal. I build web and Android apps and small robotics projects, and I'm interested in AI, security and design.</p>
                 <div className="hbtns">
                   <Magnetic><button className="btn btn-primary" onClick={() => goTo("projects")}>View Projects <Icon n="upR" size={15} /></button></Magnetic>
                   <Magnetic><button className="btn btn-ghost" onClick={downloadResume}><Icon n="down" size={15} /> Download Resume</button></Magnetic>
@@ -639,7 +638,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
               </motion.div>
             </div>
 
-            <div className="shint"><i /> Scroll to explore</div>
+            <div className="shint"><i /> Scroll</div>
           </div>
 
           {/* ============ MARQUEE ============ */}
@@ -647,7 +646,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
             <div className="marquee-track">
               {[0, 1].map((g) => (
                 <div className="mgroup" key={g}>
-                  {["AI Engineer", "Software Developer", "UI/UX Designer", "Robotics", "Cybersecurity", "Web Development", "Problem Solver"].map((t, idx) => (
+                  {["CSIT Student", "Software Developer", "UI/UX Designer", "Robotics", "Cybersecurity", "Web Development"].map((t, idx) => (
                     <React.Fragment key={t}>
                       <span className={"mitem" + (idx % 2 ? " o" : "")}>{t}</span>
                       <span className="msep">✦</span>
@@ -665,20 +664,15 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
               <R className="shead"><span className="sindex">/01</span><h2 className="stitle hg"><span className="slash">/</span>ABOUT ME</h2></R>
               <div className="about-grid">
                 <div className="about-txt">
-                  <R><h3>Curious mind. Builder's hands. I turn "what if" into "it works".</h3></R>
-                  <R delay={0.08}><p>I'm a BSc CSIT student at Far Western University who loves building at the intersection of artificial intelligence, software and design. What began as curiosity about how things work has become a journey of shipping robots, mobile apps, games and AI concepts that solve real problems.</p></R>
-                  <R delay={0.14}><p>From hackathons to leading the IT Club, I look for problems worth solving — and solve them with clarity, craft and a bias for shipping. I'm always learning, always building, always iterating.</p></R>
-                  <R delay={0.2} className="traits">
-                    {["Curious", "Builder", "Innovator", "Leader", "Lifelong Learner"].map((t) => (
-                      <span className="trait" key={t}><i />{t}</span>
-                    ))}
-                  </R>
+                  <R><h3>A little about me</h3></R>
+                  <R delay={0.08}><p>I'm a BSc CSIT student at Far Western University. I got into this because I wanted to know how things work, and that led me to build a robot cart, a few mobile apps and a game, and to try AI ideas at hackathons.</p></R>
+                  <R delay={0.14}><p>I'm also Vice President of the IT Club, where I help organize workshops and events. I'm still learning, mostly by building things and seeing what breaks.</p></R>
                 </div>
                 <div className="stats">
-                  <Stat icon="trophy" value={6} suffix="+" label="Hackathons & Events" />
-                  <Stat icon="code" value={10} suffix="+" label="Projects Built" delay={0.06} />
-                  <Stat icon="cpu" value={12} suffix="+" label="Technologies Used" delay={0.12} />
-                  <Stat icon="users" value={3} suffix="+" label="Leadership Roles" delay={0.18} />
+                  <Stat icon="trophy" value={6} suffix="+" label="Hackathons and events" />
+                  <Stat icon="code" value={10} suffix="+" label="Projects built" delay={0.06} />
+                  <Stat icon="cpu" value={12} suffix="+" label="Technologies used" delay={0.12} />
+                  <Stat icon="users" value={3} suffix="+" label="Leadership roles" delay={0.18} />
                 </div>
               </div>
             </div>
@@ -688,7 +682,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
           <section id="projects">
             <span className="ghost">WORK</span>
             <div className="shell">
-              <R className="shead"><span className="sindex">/02</span><h2 className="stitle hg"><span className="slash">/</span>SELECTED PROJECTS</h2></R>
+              <R className="shead"><span className="sindex">/02</span><h2 className="stitle hg"><span className="slash">/</span>PROJECTS</h2></R>
               <R className="frow">
                 {FILTERS.map((f) => (
                   <button key={f} className={"fchip" + (filter === f ? " on" : "")} onClick={() => setFilter(f)}>{f}</button>
@@ -711,7 +705,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                           <div className="ptags">{p.tags.map((t) => <span className="ptag" key={t}>{t}</span>)}</div>
                           <div className="pacts">
                             <a className="pbtn solid" href={p.repo} target="_blank" rel="noreferrer"><GhIcon size={14} /> GitHub</a>
-                            <button className="pbtn" onClick={() => showToast("🚀 Live demo coming soon")}>Live Demo <Icon n="upR" size={14} /></button>
+                            <button className="pbtn" onClick={() => showToast("No live demo yet")}>Live Demo <Icon n="upR" size={14} /></button>
                           </div>
                         </div>
                       </Tilt>
@@ -731,7 +725,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                   <span className="sindex" style={{ color: "var(--ac2)" }}>/03</span>
                   <h2 className="stitle hg"><span className="slash">/</span>EXPERIENCE</h2>
                 </span>
-                <span className="bandnote">Leadership · Community · Ownership</span>
+                <span className="bandnote">IT Club · College events</span>
               </R>
               {EXPERIENCE.map((x, idx) => (
                 <R className="xrow" key={x.org} delay={idx * 0.08}>
@@ -750,7 +744,7 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
           <section id="skills">
             <span className="ghost">STACK</span>
             <div className="shell">
-              <R className="shead"><span className="sindex">/04</span><h2 className="stitle hg"><span className="slash">/</span>SKILLS & TOOLS</h2></R>
+              <R className="shead"><span className="sindex">/04</span><h2 className="stitle hg"><span className="slash">/</span>SKILLS</h2></R>
               <div className="sgrid">
                 <R className="scard">
                   <div className="hd"><span className="ic"><Icon n="code" size={20} /></span><h3 className="hg">Programming</h3></div>
@@ -759,18 +753,6 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                 <R className="scard" delay={0.08}>
                   <div className="hd"><span className="ic"><Icon n="wrench" size={20} /></span><h3 className="hg">Tools</h3></div>
                   <div className="schips">{["Git", "GitHub", "Figma", "Canva", "Notion", "ChatGPT"].map((s) => <span className="schip" key={s}>{s}</span>)}</div>
-                </R>
-                <R className="scard" delay={0.16}>
-                  <div className="hd"><span className="ic"><Icon n="spark" size={20} /></span><h3 className="hg">Focus Areas</h3></div>
-                  {AREAS.map((a) => (
-                    <div className="arow" key={a.name}>
-                      <div className="lb"><span>{a.name}</span><span>{a.v}%</span></div>
-                      <div className="bar">
-                        <motion.span className="barfill" initial={{ width: 0 }} whileInView={{ width: a.v + "%" }}
-                          viewport={{ once: true }} transition={{ duration: 1.1, ease: EASE }} />
-                      </div>
-                    </div>
-                  ))}
                 </R>
               </div>
             </div>
@@ -796,12 +778,12 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
                   <span className="ic"><Icon n="cap" size={22} /></span>
                   <div>
                     <h3 className="hg">Far Western University</h3>
-                    <p className="deg">Bachelor of Science in Computer Science and Information Technology (BSc CSIT) — focusing on AI, systems, security and human-centered design.</p>
+                    <p className="deg">Bachelor of Science in Computer Science and Information Technology (BSc CSIT).</p>
                     <span className="per">2023 — PRESENT</span>
                   </div>
                 </R>
                 <R className="intcard" delay={0.08}>
-                  <h3 className="hg">Beyond The Code</h3>
+                  <h3 className="hg">Interests</h3>
                   <div className="ichips">
                     {INTERESTS.map((i) => <span className="ichip" key={i}>{i}</span>)}
                   </div>
@@ -814,8 +796,8 @@ C, JavaScript, HTML, CSS | Git, GitHub, Figma, Notion | AI, Cybersecurity, Robot
           <section id="contact" className="contact">
             <span className="ghost">CONTACT</span>
             <div className="shell">
-              <R delay={0.06}><h2 className="ctitle hg">Let's Build Something<br /><span className="grad">Amazing</span> Together.</h2></R>
-              <R delay={0.12}><p className="csub">Whether it's an AI idea, a product to ship, or a hackathon team to strengthen — my inbox is open. Let's create something clear, useful and memorable.</p></R>
+              <R delay={0.06}><h2 className="ctitle hg">Get in<br /><span className="grad">touch.</span></h2></R>
+              <R delay={0.12}><p className="csub">If you have a project idea, a hackathon team or just a question, send me an email. That's the quickest way to reach me.</p></R>
               <div className="cgrid">
                 <R delay={0.05}>
                   <a className="ccard" href={"mailto:" + EMAIL}>
